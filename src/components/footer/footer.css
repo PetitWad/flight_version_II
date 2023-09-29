@@ -1,0 +1,18 @@
+.footer-grid {
+    grid-area: footer-grid;
+    background-color: #e1d25f;
+    color: #2a0e3e;
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    display: grid;
+  grid-template-columns: 1fr 1fr; /* Deux colonnes égales */
+  align-items: center; 
+}
+
+.footer-grid span {
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}

@@ -1,0 +1,66 @@
+*{margin: 0;}
+
+.header-grid {
+  grid-area: header-grid;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  background-color: #2a0e3e;;;
+}
+
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-label{
+  color: #c7c3da;
+  margin-left: 15px;
+  font-size: 18px;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.departures h1 {
+  font-size: 35px;
+  color: #c7c3da;
+}
+
+.current-time {
+  margin-right: 15px;
+  color: #e1d25f;
+}
+
+.flight-header {
+  display: flex;
+  color: #a2afd1;
+  font-weight: bold;
+  padding: 10px;
+  font-size: 30px;
+}
+
+.item {
+  flex: 1; 
+  text-align: center;
+  padding: 10px;
+  border-right: 1.5px solid white;
+}
+
+.item:last-child {
+  border-right: none;
+}
+
+.icon-color{
+  color: #e1d25f;
+}
