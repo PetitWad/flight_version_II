@@ -4,31 +4,29 @@ import { Element, scroller } from 'react-scroll';
 
 const AutoScroll = ({ data, loading }) => {
   const [isScrollingDown, setIsScrollingDown] = useState(true);
+  const groupSize = 4; // Nombre d'éléments par groupe
+  const scrollDuration = 40000; // Durée de défilement par groupe en millisecondes
+  const pauseDuration = 6000; // Durée de la pause entre les groupes en millisecondes
 
   useEffect(() => {
-    const scrollDown = () => {
-      scroller.scrollTo('nextElement', {
-        duration: 10000, // Augmentez la durée pour un défilement plus lent (par exemple, 4 secondes)
-        smooth: 'easeInOutQuart',
-      });
-    };
-
-    const scrollUp = () => {
-      scroller.scrollTo('prevElement', {
-        duration: 10000, // Augmentez la durée pour un défilement plus lent (par exemple, 4 secondes)
-        smooth: 'linear',
-      });
+    const scrollGroup = () => {
+      if (isScrollingDown) {
+        scroller.scrollTo('nextElement', {
+          duration: scrollDuration,
+          smooth: 'easeInOutQuart',
+        });
+      } else {
+        scroller.scrollTo('prevElement', {
+          duration: scrollDuration,
+          smooth: 'outEaseInQuart',
+        });
+      }
     };
 
     const scrollInterval = setInterval(() => {
-      if (isScrollingDown) {
-        scrollDown();
-      } else {
-        scrollUp();
-      }
-
+      scrollGroup();
       setIsScrollingDown((prevIsScrollingDown) => !prevIsScrollingDown);
-    }, 10000);
+    }, scrollDuration + pauseDuration);
 
     return () => {
       clearInterval(scrollInterval);
@@ -48,21 +46,35 @@ const AutoScroll = ({ data, loading }) => {
       return <div className="item-error">No Flight...</div>;
     }
 
+    // Divisez les données en groupes de 4 éléments
+    const groups = [];
+    for (let i = 0; i < data.length; i += groupSize) {
+      groups.push(data.slice(i, i + groupSize));
+    }
+
     return (
       <div>
         <Element name="prevElement" />
         <div className="flight-data-container">
-          {data.map((data, index) => (
-            <div
-              key={index}
-              className={`flight-data ${index % 2 === 0 ? 'row-stripped' : ''}`}
-            >
-              <div className='item-content'> <img className='item-image' src={data.airlineImage} /></div>
-              <div className='item-content'>{data.flight}</div>
-              <div className='item-content'>{data.airline}</div>
-              <div className='item-content'>{data.to}</div>
-              <div className='item-content'>{data.time}</div>
-              <div className='item-content'>{data.status}</div>
+          {groups.map((group, groupIndex) => (
+            <div key={groupIndex} className="group-container">
+              {group.map((flightData, index) => (
+                <div
+                  key={index}
+                  className={`flight-data ${
+                    index % 2 === 0 ? 'row-stripped' : ''
+                  }`}
+                >
+                  <div className="item-content">
+                    <img className="item-image" src={flightData.airlineImage} />
+                  </div>
+                  <div className="item-content">{flightData.flight}</div>
+                  <div className="item-content">{flightData.airline}</div>
+                  <div className="item-content">{flightData.to}</div>
+                  <div className="item-content">{flightData.time}</div>
+                  <div className="item-content">{flightData.status}</div>
+                </div>
+              ))}
             </div>
           ))}
         </div>
