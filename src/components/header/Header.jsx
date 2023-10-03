@@ -1,6 +1,6 @@
 import React from 'react';
 import './header.css';
-import LogoAnn from '../../assets/img/logo_ann.jpg';
+import AanLogo from '../../assets/img/logo.png';
 import Horloge from '../horloge/Holorge';
 
 const Header = ({ typeVol, logo }) => {
@@ -9,7 +9,7 @@ const Header = ({ typeVol, logo }) => {
         <div className='header-grid'>
             <header>
                 <div className="logo">
-                    <img src={LogoAnn} alt="Logo" />
+                    <img src={AanLogo} alt="Logo" />
                     <div>
                         <div className='logo-label'>Aéroport International</div>
                         <div className='logo-label'>Toussaint Louverture</div>
