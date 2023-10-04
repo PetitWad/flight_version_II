@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './autoScrol.css';
+import './animate.css';
+import plane from '../../assets/img/plane.png';
 import { Element, scroller } from 'react-scroll';
 
 const AutoScroll = ({ data, loading }) => {
@@ -43,8 +45,13 @@ const AutoScroll = ({ data, loading }) => {
     }
 
     if (data.length === 0) {
-      return <div className="item-error">No Flight...</div>;
+     return <div className="container">
+     <div className="item-error no_flight">No Flight...</div>
+     <img class="image_plane" src={plane} alt="Logo" />
+     </div>
+     ; 
     }
+
 
     // Divisez les données en groupes de 4 éléments
     const groups = [];
