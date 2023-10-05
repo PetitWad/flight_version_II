@@ -46,7 +46,7 @@ const AutoScroll = ({ data, loading }) => {
 
     if (data.length === 0) {
      return <div className="container">
-     <div className="item-error no_flight">No Flight...</div>
+     <div className="item-error no_flight"><marquee>No Flight...</marquee></div>
      <img class="image_plane" src={plane} alt="Logo" />
      </div>
      ; 
