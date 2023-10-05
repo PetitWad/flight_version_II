@@ -4,7 +4,6 @@ import { getLogoUrlByAirline } from '../../config/config';
 import './autoScroll.css';
 import './animate.css';
 import plane from '../../assets/img/plane.png';
-import { Element, scroller } from 'react-scroll';
 
 const AutoScroll = ({ data, loading }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -30,27 +29,22 @@ const AutoScroll = ({ data, loading }) => {
     }
 
     if (data.length === 0) {
+
         return <div className="item-error">No Flight...</div>;
-     return <div className="container">
-     <div className="item-error no_flight">
-            <div className="text">NO </div> 
-            <div className="text"> 
-              <span className="spantext"> FLIGHT ....</span>
+
+        return <div className="container">
+            <div className="item-error no_flight">
+                <div className="text">NO </div>
+                <div className="text">
+                    <span className="spantext"> FLIGHT ....</span>
+                </div>
             </div>
-     </div>
 
-     <img class="image_plane" src={plane} alt="Logo" />
-     </div>
-     ; 
+            <img class="image_plane" src={plane} alt="Logo" />
+        </div>
+            ;
     }
 
-
-    // Divisez les données en groupes de 4 éléments
-    const groups = [];
-    for (let i = 0; i < data.length; i += groupSize) {
-      groups.push(data.slice(i, i + groupSize));
->>>>>>> f65174d5f621e819403a28472062c6781a54d858
-    }
 
     return (
         <div className="flight-data-container">
