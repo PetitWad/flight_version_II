@@ -8,7 +8,7 @@ const Index = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setShowArrivals((prev) => !prev);
-    }, 1 * 60 * 1000); // Changer de page toutes les une minutes
+    }, 1 * 49 * 1000); // Changer de page toutes les 50 secondes
 
     return () => {
       clearInterval(interval);

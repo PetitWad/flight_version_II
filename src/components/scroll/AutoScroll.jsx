@@ -1,90 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import './autoScrol.css';
-import { Element, scroller } from 'react-scroll';
+import React, { useState, useEffect } from 'react';
+import { logos } from '../../data/AirlineLogo';
+import { getLogoUrlByAirline } from '../../config/config';
+import './autoScroll.css';
 
 const AutoScroll = ({ data, loading }) => {
-  const [isScrollingDown, setIsScrollingDown] = useState(true);
-  const groupSize = 4; // Nombre d'éléments par groupe
-  const scrollDuration = 40000; // Durée de défilement par groupe en millisecondes
-  const pauseDuration = 6000; // Durée de la pause entre les groupes en millisecondes
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    const scrollGroup = () => {
-      if (isScrollingDown) {
-        scroller.scrollTo('nextElement', {
-          duration: scrollDuration,
-          smooth: 'easeInOutQuart',
-        });
-      } else {
-        scroller.scrollTo('prevElement', {
-          duration: scrollDuration,
-          smooth: 'outEaseInQuart',
-        });
-      }
-    };
+    useEffect(() => {
+        if (!loading && data && data.length > 0) {
+            const interval = setInterval(() => {
+                setCurrentIndex((prevIndex) =>
+                    prevIndex + 5 < data.length ? prevIndex + 5 : 0
+                );
+            }, 7000); // Change the scrolling interval as needed (7000ms = 7 seconds)
 
-    const scrollInterval = setInterval(() => {
-      scrollGroup();
-      setIsScrollingDown((prevIsScrollingDown) => !prevIsScrollingDown);
-    }, scrollDuration + pauseDuration);
+            return () => clearInterval(interval);
+        }
+    }, [data, loading]);
 
-    return () => {
-      clearInterval(scrollInterval);
-    };
-  }, [isScrollingDown]);
-
-  const renderContent = () => {
     if (loading) {
-      return <div className="item-error">Data Loading....</div>;
+        return <div className="item-error">Data Loading....</div>;
     }
 
     if (!data) {
-      return <div className="item-error">Network Error....</div>;
+        return <div className="item-error">Network Error....</div>;
     }
 
     if (data.length === 0) {
-      return <div className="item-error">No Flight...</div>;
-    }
-
-    // Divisez les données en groupes de 4 éléments
-    const groups = [];
-    for (let i = 0; i < data.length; i += groupSize) {
-      groups.push(data.slice(i, i + groupSize));
+        return <div className="item-error">No Flight...</div>;
     }
 
     return (
-      <div>
-        <Element name="prevElement" />
         <div className="flight-data-container">
-          {groups.map((group, groupIndex) => (
-            <div key={groupIndex} className="group-container">
-              {group.map((flightData, index) => (
+            {data.slice(currentIndex, currentIndex + 5).map((flight, index) => (
                 <div
-                  key={index}
-                  className={`flight-data ${
-                    index % 2 === 0 ? 'row-stripped' : ''
-                  }`}
+                    key={index}
+                    className={`flight-data ${index % 2 === 0 ? 'row-stripped' : ''}`}
                 >
-                  <div className="item-content">
-                    <img className="item-image" src={flightData.airlineImage} />
-                  </div>
-                  <div className="item-content">{flightData.flight}</div>
-                  <div className="item-content">{flightData.airline}</div>
-                  <div className="item-content">{flightData.to}</div>
-                  <div className="item-content">{flightData.time}</div>
-                  <div className="item-content">{flightData.status}</div>
+                    <div className='item-content'> <img className='item-image' src={getLogoUrlByAirline(logos, flight.sigle_airline)} alt='Unkwon Airline' /></div>
+                    <div className='item-content'>{flight.flight}</div>
+                    <div className='item-content'>{flight.to}</div>
+                    <div className='item-content time-color'>{flight.time}</div>
+                    <div className='item-content'>{flight.status}</div>
                 </div>
-              ))}
-            </div>
-          ))}
+            ))}
         </div>
-
-        <Element name="nextElement" />
-      </div>
     );
-  };
-
-  return renderContent();
 };
 
 export default AutoScroll;

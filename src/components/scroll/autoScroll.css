@@ -1,0 +1,56 @@
+/* Styles for the flight data container */
+.flight-data-container {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  top: 150px;
+}
+
+.item-content {
+  flex: 1;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  font-size: 27px;
+
+}
+
+/* Styles for individual flight data rows */
+.flight-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  padding: 10px;
+  background-color: #2a0e3e;
+  height: calc(16% - 30px);
+  /* 20% pour chaque élément avec 20px de padding */
+  transition: transform 0.5s ease-in-out;
+}
+
+.time-color {
+  color: #e1d25f;
+  font-weight: bold;
+}
+
+/* Add striped background for even rows */
+.row-stripped {
+  background-color: #6a1f88;
+}
+
+/* Styles for no flyght and network error messages */
+.item-error {
+  position: relative;
+  top: 300px;
+  text-align: center;
+  color: #c7c3da;
+  font-size: 40px;
+}
+
+/* Styles for image within the flight data */
+.item-image {
+  width: 130px;
+  height: 75px;
+  margin-right: 10px;
+}
