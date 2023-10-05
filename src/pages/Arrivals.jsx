@@ -27,7 +27,7 @@ const direction = "ARRIVALS";
   return ( 
     <>
     <Header typeVol={direction} logo={ <FaPlaneArrival className="icon-color" />} />
-     <Content data={arrivalsData} loading={isLoadingDepartures} /> 
+     <Content data={departuresData} loading={isLoadingDepartures} /> 
      <Footer />
      </>
   );
