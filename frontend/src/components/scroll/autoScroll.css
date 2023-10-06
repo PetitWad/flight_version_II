@@ -1,19 +1,11 @@
 /* Styles for the flight data container */
 .flight-data-container {
   overflow: hidden;
+  flex-wrap: nowrap;
   height: 100%;
   width: 100%;
   position: relative;
   top: 150px;
-}
-
-.item-content {
-  flex: 1;
-  text-align: center;
-  padding: 20px;
-  color: white;
-  font-size: 27px;
-
 }
 
 /* Styles for individual flight data rows */
@@ -21,11 +13,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: auto;
+  flex-wrap: nowrap; 
   background-color: #2a0e3e;
-  height: calc(14.2% - 30px);
+  height: calc(14.5% - 30px);
   transition: transform 0.5s ease-in-out;
 }
+
+.item-content {
+  flex: 1;
+  text-align: center;
+  color: white;
+  font-size: 27px;
+}
+
 
 .time-color {
   color: #e1d25f;
@@ -49,6 +49,7 @@
 /* Styles for image within the flight data */
 .item-image {
   width: 130px;
-  height: 50px;
+  height: 60px;
+  margin-top: 5px;
   margin-right: 10px;
 }

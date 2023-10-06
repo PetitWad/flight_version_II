@@ -73,10 +73,10 @@ const AutoScroll = ({ data, loading }) => {
                             alt="Unknown Airline"
                         />
                     </div>
-                    <div className="item-content">{item.flight}</div>
-                    <div className="item-content">{item.flight_from}</div>
-                    <div className="item-content time-color">{item.estimate_arrive_time}</div>
-                    <div className="item-content">{item.status}</div>
+                    <div className="item-content" style={{witheSpace: 'nowrap'}}>{item.airline_code +''+ item.flight}</div>
+                    <div className="item-content" style={{witheSpace: 'nowrap'}}>{item.flight_from}</div>
+                    <div className="item-content time-color"style={{witheSpace: 'nowrap'}}>{item.estimate_arrive_time}</div>
+                    <div className="item-content" style={{witheSpace: 'nowrap'}}>{item.status}</div>
                 </div>
                 
             ))}
