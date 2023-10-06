@@ -1,23 +1,23 @@
-*{ 
-    
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
- }
+* {
 
- body {
-    overflow: hidden; 
-    /* background-color: #2a0e3e; */
-  }
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
 
-  .App {
-    display: grid;
-    height: 100vh;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 8fr 0.7fr;
-    grid-template-areas:
-        "header-grid"
-        "content-grid"
-        "footer-grid";
-    
-    
-    
+body {
+  overflow: hidden;
+  /* background-color: #2a0e3e; */
+}
+
+.App {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 8fr 0.7fr;
+  grid-template-areas:
+    "header-grid"
+    "content-grid"
+    "footer-grid";
+
+
+
 }

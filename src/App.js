@@ -3,7 +3,7 @@ import Index from "./pages/Index";
 import Departures from "./pages/Departures";
 import Arrivals from "./pages/Arrivals";
 import Error from "./pages/Error";
-import "./app.css"
+import "./App.css"
 
 function App() {
   return (
