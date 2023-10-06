@@ -22,10 +22,8 @@
   justify-content: space-between;
   align-items: center;
   margin: auto;
-  padding: 10px;
   background-color: #2a0e3e;
-  height: calc(16% - 30px);
-  /* 20% pour chaque élément avec 20px de padding */
+  height: calc(14.2% - 30px);
   transition: transform 0.5s ease-in-out;
 }
 
@@ -51,6 +49,6 @@
 /* Styles for image within the flight data */
 .item-image {
   width: 130px;
-  height: 75px;
+  height: 50px;
   margin-right: 10px;
 }

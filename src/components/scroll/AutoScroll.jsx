@@ -7,18 +7,33 @@ import plane from '../../assets/img/plane.png';
 
 const AutoScroll = ({ data, loading }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isOnline, setIsOnline] = useState(navigator.onLine);
 
     useEffect(() => {
+        const handleOnline = () => setIsOnline(true);
+        const handleOffline = () => setIsOnline(false);
+
+        window.addEventListener('online', handleOnline);
+        window.addEventListener('offline', handleOffline);
+
         if (!loading && data && data.length > 0) {
             const interval = setInterval(() => {
                 setCurrentIndex((prevIndex) =>
-                    prevIndex + 5 < data.length ? prevIndex + 5 : 0
+                    prevIndex + 7 < data.length ? prevIndex + 7 : 0
                 );
-            }, 7000); // Change the scrolling interval as needed (7000ms = 7 seconds)
+            }, 7000); // the scrolling interval (7000ms = 7 seconds)
 
-            return () => clearInterval(interval);
+            return () => {
+                clearInterval(interval);
+                window.removeEventListener('online', handleOnline);
+                window.removeEventListener('offline', handleOffline);
+            };
         }
     }, [data, loading]);
+
+    if (!isOnline) {
+        return <div className="item-error">No Internet Connection...</div>;
+    }
 
     if (loading) {
         return <div className="item-error">Data Loading....</div>;
@@ -29,33 +44,41 @@ const AutoScroll = ({ data, loading }) => {
     }
 
     if (data.length === 0) {
-
-        return <div className="container">
-            <div className="item-error no_flight">
-                <div className="text">NO </div>
-                <div className="text">
-                    <span className="spantext"> FLIGHT ....</span>
+        return (
+            <div className="container">
+                <div className="item-error no_flight">
+                    <div className="text">NO </div>
+                    <div className="text">
+                        <span className="spantext"> FLIGHT ....</span>
+                    </div>
                 </div>
+                <img className="image_plane" src={plane} alt="Logo" />
             </div>
-
-            <img class="image_plane" src={plane} alt="Logo" />
-        </div>
+        );
     }
 
-
     return (
+        
         <div className="flight-data-container">
-            {data.slice(currentIndex, currentIndex + 5).map((flight, index) => (
+            {console.log(data)}
+            {data.slice(currentIndex, currentIndex + 7).map((item, index) => (
                 <div
                     key={index}
                     className={`flight-data ${index % 2 === 0 ? 'row-stripped' : ''}`}
                 >
-                    <div className='item-content'> <img className='item-image' src={getLogoUrlByAirline(logos, flight.sigle_airline)} alt='Unkwon Airline' /></div>
-                    <div className='item-content'>{flight.flight}</div>
-                    <div className='item-content'>{flight.to}</div>
-                    <div className='item-content time-color'>{flight.time}</div>
-                    <div className='item-content'>{flight.status}</div>
+                    <div className="item-content">
+                        <img
+                            className="item-image"
+                            src={getLogoUrlByAirline(logos, item.airline_code)}
+                            alt="Unknown Airline"
+                        />
+                    </div>
+                    <div className="item-content">{item.flight}</div>
+                    <div className="item-content">{item.flight_from}</div>
+                    <div className="item-content time-color">{item.estimate_arrive_time}</div>
+                    <div className="item-content">{item.status}</div>
                 </div>
+                
             ))}
         </div>
     );
