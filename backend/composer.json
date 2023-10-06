@@ -1,0 +1,15 @@
+{
+    "name": "lenovo/php-api-fetch",
+    "autoload": {
+        "psr-4": {
+            "Lenovo\\PhpApiFetch\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ohad-ehi7",
+            "email": "philogeneohad6@gmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -1,0 +1,84 @@
+.no_flight{
+    position: absolute;
+    top: 95%; 
+    right: 50%;
+    width: 50%;
+    transform: translate(50%,-50%);
+    text-transform: uppercase;
+    font-family: verdana;
+    font-size: 4em;
+    font-weight: 900;
+    color: #e1d25f;
+    text-shadow: 6px 6px 6px #6a1f88 ,
+       
+    1px 18px 6px rgba(16,16,16,0.5),
+    1px 22px 10px rgba(16,16,16,0.2),
+    1px 25px 35px rgba(16,16,16,0.2),
+    1px 30px 60px rgba(16,16,16,0.5);
+}
+
+.text{
+    display:inline-block;
+    overflow:hidden;
+    white-space:nowrap;
+
+}
+
+.text:first-of-type {   
+    animation: showup 7s infinite;
+  }
+  
+  .text:last-of-type {
+    width:0px;
+    animation: reveal 7s infinite;
+  }
+  
+  .text:last-of-type .spantext {
+    margin-left:-400px;
+    animation: slidein 7s infinite;
+  }
+  
+  @keyframes showup {
+      0% {opacity:0;}
+      20% {opacity:1;}
+      80% {opacity:1;}
+      100% {opacity:0;}
+  }
+  
+  @keyframes slidein {
+      0% { margin-left:-800px; }
+      20% { margin-left:-800px; }
+      35% { margin-left:0px; }
+      100% { margin-left:0px; }
+  }
+  
+   @keyframes reveal {
+      0% {opacity:0;width:0px;}
+      20% {opacity:1;width:0px;}
+      30% {width:400px;}
+      80% {opacity:1;}
+      100% {opacity:0;width:400px;}
+  } 
+  
+
+.image_plane{  
+margin: auto 0;  
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    max-width: 100%;
+    text-align: center;
+}
+
+
+/* CSS pour l'image de l'avion */
+.image_plane {
+    max-width: 100%;
+    height: auto;
+    margin-top: 160px;
+}
+  
