@@ -36,14 +36,10 @@ const AutoScroll = ({ data, loading }) => {
     }
 
     if (loading) {
-        return <div className="item-error">Data Loading....</div>;
+        return <div className="item-error">Data Loading...</div>;
     }
 
-    if (!data) {
-        return <div className="item-error">Network Error....</div>;
-    }
-
-    if (data.length === 0) {
+    if (!data || data.length === 0) {
         return (
             <div className="container">
                 <div className="item-error no_flight">
@@ -58,7 +54,7 @@ const AutoScroll = ({ data, loading }) => {
     }
 
     return (
-        
+
         <div className="flight-data-container">
             {console.log(data)}
             {data.slice(currentIndex, currentIndex + 7).map((item, index) => (
@@ -73,12 +69,12 @@ const AutoScroll = ({ data, loading }) => {
                             alt="Unknown Airline"
                         />
                     </div>
-                    <div className="item-content" style={{witheSpace: 'nowrap'}}>{item.airline_code +''+ item.flight}</div>
-                    <div className="item-content" style={{witheSpace: 'nowrap'}}>{item.flight_from}</div>
-                    <div className="item-content time-color"style={{witheSpace: 'nowrap'}}>{item.estimate_arrive_time}</div>
-                    <div className="item-content" style={{witheSpace: 'nowrap'}}>{item.status}</div>
+                    <div className="item-content" style={{ witheSpace: 'nowrap' }}>{item.airline_code + '' + item.flight}</div>
+                    <div className="item-content" style={{ witheSpace: 'nowrap' }}>{item.flight_from}</div>
+                    <div className="item-content time-color" style={{ witheSpace: 'nowrap' }}>{item.estimate_arrive_time}</div>
+                    <div className="item-content" style={{ witheSpace: 'nowrap' }}>{item.status}</div>
                 </div>
-                
+
             ))}
         </div>
     );
