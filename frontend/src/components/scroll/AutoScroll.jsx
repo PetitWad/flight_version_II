@@ -5,7 +5,7 @@ import './autoScroll.css';
 import './animate.css';
 import plane from '../../assets/img/plane.png';
 
-const AutoScroll = ({ data, loading }) => {
+const AutoScroll = ({ data, loading, typeVol }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isOnline, setIsOnline] = useState(navigator.onLine);
 
@@ -70,7 +70,8 @@ const AutoScroll = ({ data, loading }) => {
                         />
                     </div>
                     <div className="item-content" style={{ witheSpace: 'nowrap' }}>{item.airline_code + '' + item.flight}</div>
-                    <div className="item-content" style={{ witheSpace: 'nowrap' }}>{item.flight_from}</div>
+                    <div className="item-content" style={{ witheSpace: 'nowrap' }}>  {typeVol === 'ARRIVALS' ? item.flight_from : item.flight_to}  </div>
+                    {/* <div className="item-content" style={{ witheSpace: 'nowrap' }}>{item.flight_from}</div> */}
                     <div className="item-content time-color" style={{ witheSpace: 'nowrap' }}>{item.estimate_arrive_time}</div>
                     <div className="item-content" style={{ witheSpace: 'nowrap' }}>{item.status}</div>
                 </div>

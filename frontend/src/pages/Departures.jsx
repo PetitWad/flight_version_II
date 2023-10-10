@@ -4,7 +4,6 @@ import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
 import { FaPlaneDeparture } from 'react-icons/fa';
 
-// const apiUrl = 'http://localhost/php-api-fetch/src/api/allDepartures.php';
 const apiUrl = 'http://localhost/flyght_version_2/php-api-fetch/src/api/allDepartures.php';
 
 const Departures = () => {
@@ -39,7 +38,7 @@ const Departures = () => {
   return (
     <>
       <Header typeVol={direction} logo={<FaPlaneDeparture className="icon-color" />} />
-      <Content data={departuresData} loading={isLoadingDepartures} />
+      <Content data={departuresData} loading={isLoadingDepartures} typeVol={direction} />
       <Footer />
     </>
   );
