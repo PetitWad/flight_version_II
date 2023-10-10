@@ -1,10 +1,10 @@
-<?php
+<?php  
 // Les entêtes requises
 header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json; charset= UTF-8");
 header("Access-Control-Allow-Methods: GET");
 
-require_once '../connection.php';
+require_once '../config/connection.php';
 require_once '../models/Arrivals.php';
 
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     $database = new Database();
     $db = $database->getConnexion();
 
-    // On instancie l'objet etudiant
+    // On instancie l'objet Arrivals
     $arrival = new Arrivals($db);
 
     // Récupération des données

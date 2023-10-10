@@ -1,6 +1,6 @@
 <?php
 // Configuration de l'URL de votre API
-$api_url = 'http://localhost/php-api-fetch/controllers/readAll.php';
+$api_url = 'http://localhost/php-api-fetch/src/api/allDepartures.php';
 
 // Utilisation de cURL pour faire une requête GET à votre API
 $ch = curl_init($api_url);
@@ -16,7 +16,7 @@ if ($http_status === 200) {
 
     if (!empty($data)) {
         // Affichage des données de l'API
-        echo '<h1>Liste des Arrivées</h1>';
+        echo '<h1>Liste des Departures</h1>';
         echo '<table>';
         echo '<tr><th>ID</th><th>Code de la compagnie</th><th>Numéro de vol</th><th>Provenance</th><th>Statut</th><th>Heure d\'arrivée estimée</th><th>Date actuelle</th></tr>';
         
@@ -25,7 +25,7 @@ if ($http_status === 200) {
             echo '<td>' . $arrival['id'] . '</td>';
             echo '<td>' . $arrival['airline_code'] . '</td>';
             echo '<td>' . $arrival['flight'] . '</td>';
-            echo '<td>' . $arrival['flight_from'] . '</td>';
+            echo '<td>' . $arrival['flight_to'] . '</td>';
             echo '<td>' . $arrival['status'] . '</td>';
             echo '<td>' . $arrival['estimate_arrive_time'] . '</td>';
             echo '<td>' . $arrival['cur_date'] . '</td>';

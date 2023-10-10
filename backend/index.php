@@ -1,6 +1,6 @@
 <?php
-include 'connection.php';
-include './models/Arrivals.php';
+include 'src/config/connection.php';
+include 'src/models/Arrivals.php';
 
 date_default_timezone_set("America/New_York");
 $cur_date = date('d-M-Y');
