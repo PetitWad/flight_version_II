@@ -13,7 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: nowrap; 
+  flex-wrap: nowrap;
   background-color: #2a0e3e;
   height: calc(14.5% - 30px);
   transition: transform 0.5s ease-in-out;
@@ -24,8 +24,8 @@
   text-align: center;
   color: white;
   font-size: 27px;
+  padding: auto;
 }
-
 
 .time-color {
   color: #e1d25f;
@@ -37,7 +37,7 @@
   background-color: #6a1f88;
 }
 
-/* Styles for no flyght and network error messages */
+/* Styles for no flight and network error messages */
 .item-error {
   position: relative;
   top: 300px;
@@ -52,4 +52,49 @@
   height: 60px;
   margin-top: 5px;
   margin-right: 10px;
+}
+
+/* Responsive styles  Écran moyen */
+@media (max-width: 768px) {
+  .flight-data-container {
+    top: 100px;
+  }
+
+  .flight-data {
+    height: calc(14.6% - 30px);
+    font-size: 17px;
+  }
+
+  .item-content {
+    font-size: 16px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  .item-image {
+    width: 100px;
+    height: 46px;
+  }
+}
+
+/* Responsive styles  Écran étroit */
+@media (max-width: 480px) {
+  .flight-data-container {
+    position: relative;
+    top: 100px;
+  }
+
+  .flight-data {
+    height: calc(14.7% - 30px);
+    font-size: 17px;
+  }
+
+  .item-content {
+    font-size: 17px;
+  }
+
+  .item-image {
+    width: 80px;
+    height: 36px;
+  }
 }

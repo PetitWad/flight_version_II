@@ -22,7 +22,7 @@ const Header = ({ typeVol, logo }) => {
                 </div>
                 <div className="current-time">
                     <h1> <Horloge /></h1>
-                </div> 
+                </div>
             </header>
             <div className="flight-header">
                 <div className='item'>Airline</div>
