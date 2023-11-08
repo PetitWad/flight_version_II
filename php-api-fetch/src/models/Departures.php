@@ -52,6 +52,16 @@ class Departures
             echo 'Data not inserted';
         }
     }
+
+    public function deleteDepartures(){
+        $delDepartures = $this->connexion->prepare("DELETE FROM  `$this->table`");
+        if ($delDepartures->execute()) {
+            echo 'Data deleted successfully';
+        } else {
+            echo 'Data not deleted';
+        }
+
+    }
     
     
 }

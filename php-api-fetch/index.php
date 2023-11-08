@@ -2,84 +2,80 @@
 include 'src/config/connection.php';
 include 'src/models/Arrivals.php';
 
-date_default_timezone_set("America/New_York");
-$cur_date = date('d-M-Y');
-$username = "ataloums";
+// date_default_timezone_set("America/Port-au-Prince");
+$apiKey = "e2B0ZmYZG71usQxrl9AxDweaKTJSnAg6";
+$fxmlUrl = "https://aeroapi.flightaware.com/aeroapi/";
 
-$apiKey = "f6713303b76c5942740a9c1a646a91abd43b65ba";
-$fxmlUrl = "https://flightxml.flightaware.com/json/FlightXML3/";
 
-$queryParams = array(
-	'airport_code' => 'MTPP',
-	'howMany' => 15,
-	'filter' => 'airline'
-);
+$timezone = new DateTimeZone('America/Port-Au-Prince');  // Set the time zone (e.g., for the Port-Au-Prince)
+$currentDate = new DateTime('now', $timezone); // Get the current date in your specified time zone
 
-$url = $fxmlUrl . 'AirportBoards?' . http_build_query($queryParams);
+$startTime = clone $currentDate; // Set the start time to 12:00 AM (midnight)
+$startTime->setTime(0, 0);
+
+$endTime = clone $currentDate;  // Set the end time to 11:59 PM 
+$endTime->setTime(23, 59);
+
+// Format the dates in ISO 8601 format
+$startTime = $startTime->format('c'); // Start time
+$endTime = $endTime->format('c'); // End time
+
+
+
+$url = "https://aeroapi.flightaware.com/aeroapi/airports/MTPP/flights/scheduled_arrivals?start={$startTime}&end={$endTime}";
+
 $ch = curl_init($url);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-apikey: ' . $apiKey));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-	'Authorization: Basic ' . base64_encode($username . ':' . $apiKey)
-]);
-
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
-echo "<h2>Arrivals</h2>";
 if ($result = curl_exec($ch)) {
 	curl_close($ch);
-	$flight_array = json_decode($result);
 
-	$tableData = array();
+	// Décodez le résultat JSON en un tableau PHP
+	$data = json_decode($result, true);
 
-	foreach ($flight_array as $key =>  $value1) {
-		foreach ($value1->enroute->flights as $key2 => $value) {
-			if (date("m/d/Y") == $value->estimated_arrival_time->date) {
-				$rowData = array(
-					'airlineCode' => $value->airline,
-					'flightNumber' => $value->flightnumber,
-					'airlineLogoUrlPng' => $value->estimated_arrival_time->date,
-					'remarks' => $value->status,
-					'city' => $value->origin->city,
-					'currentDateTime' => $value->estimated_arrival_time->time
-				);
-
-				$tableData[] = $rowData;
-			}
-		}
-	}
-
-	echo '<table>';
-	echo '<thead><tr>';
-	echo '<th>Compagnie aérienne</th>';
-	echo '<th>Numéro de vol</th>';
-	echo '<th>Logo de la compagnie aérienne</th>';
-	echo '<th>Remarques</th>';
-	echo '<th>Ville d\'origine</th>';
-	echo '<th>Heure d\'arrivée estimée</th>';
-	echo '</tr></thead>';
-	echo '<tbody>';
-
-	// Créez une instance de la classe Database
 	$database = new Database();
-
-	// Obtenez la connexion PDO
 	$conn = $database->getConnexion();
+	$arrivalsDao = new Arrivals($conn);
 
-	$arrivals = new Arrivals($conn);
+	$cur_date = date('d-M-Y'); // current date 
+	// Vérifiez si le décodage a réussi
+	if ($data !== null) {
+		$arrivalsDao->deleteArrivals(); // delete the data in database before insert the data each 30 minutes
+		// Parcourez les éléments "arrivals" du tableau
+		foreach ($data['scheduled_arrivals'] as $arrival) {
 
-	foreach ($tableData as $rowData) {
-		$arrivals->addArrivals($rowData['airlineCode'], $rowData['flightNumber'], $rowData['city'], $rowData['remarks'], $rowData['currentDateTime'], $cur_date);
-		echo '<tr>';
-		echo '<td>' . $rowData['airlineCode'] . '</td>';
-		echo '<td>' . $rowData['flightNumber'] . '</td>';
-		echo '<td>' . $rowData['airlineLogoUrlPng'] . '</td>';
-		echo '<td>' . $rowData['remarks'] . '</td>';
-		echo '<td>' . $rowData['city'] . '</td>';
-		echo '<td>' . $rowData['currentDateTime'] . '</td>';
-		echo '</tr>';
+			$airline_code = $arrival['operator'];
+			$ident = $arrival['ident'];
+			$originCity = $arrival['origin']['city'];
+
+			// Create a DateTime object from the ISO 8601 time
+			$datetime = new DateTime($arrival['estimated_on'], new DateTimeZone('UTC'));
+
+			// Set the time zone to your local time zone (e.g., 'America/New_York')
+			$datetime->setTimezone(new DateTimeZone('America/Port-Au-Prince'));
+
+			// Format the DateTime object as time with AM or PM
+			$formatted_time = $datetime->format("h:i A");
+
+			$status = $arrival['status'];
+			echo "Operator: $airline_code, Flight Number: $ident, Origin: $originCity, Time: $formatted_time, Status: $status\n";
+			$arrivalsDao->addArrivals($airline_code, $ident, $originCity, $status, $formatted_time, $cur_date);
+		}
+	} else {
+		echo "Erreur lors du décodage JSON.";
+	}
+} else {
+	echo "Erreur lors de la requête cURL.";
+}
+
+?>
+
+<script>
+	function autoRefreshPage() {
+		location.reload(); // Reload the page
 	}
 
-	echo '</tbody>';
-	echo '</table>';
-}
+	// Call the autoRefreshPage function every 30 minutes in milliseconds
+	setInterval(autoRefreshPage, 1800000);
+</script>

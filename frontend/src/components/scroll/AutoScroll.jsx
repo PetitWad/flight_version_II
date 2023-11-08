@@ -69,9 +69,8 @@ const AutoScroll = ({ data, loading, typeVol }) => {
                             alt="Unknown Airline"
                         />
                     </div>
-                    <div className="item-content" style={{ witheSpace: 'nowrap' }}>{item.airline_code + '' + item.flight}</div>
+                    <div className="item-content" style={{ witheSpace: 'nowrap' }}>{item.flight}</div>
                     <div className="item-content" style={{ witheSpace: 'nowrap' }}>  {typeVol === 'ARRIVALS' ? item.flight_from : item.flight_to}  </div>
-                    {/* <div className="item-content" style={{ witheSpace: 'nowrap' }}>{item.flight_from}</div> */}
                     <div className="item-content time-color" style={{ witheSpace: 'nowrap' }}>{item.estimate_arrive_time}</div>
                     <div className="item-content" style={{ witheSpace: 'nowrap' }}>{item.status}</div>
                 </div>
