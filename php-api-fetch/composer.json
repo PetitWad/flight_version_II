@@ -1,15 +1,19 @@
 {
-    "name": "lenovo/php-api-fetch",
+    "name": "nicka/php-api-fetch",
     "autoload": {
         "psr-4": {
-            "Lenovo\\PhpApiFetch\\": "src/"
+            "Nicka\\PhpApiFetch\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "ohad-ehi7",
-            "email": "philogeneohad6@gmail.com"
+            "name": "Petit-Homme Wadly",
+            "email": "wadleyp96@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "ext-gd": "*",
+        "ext-fileinfo": "*",
+        "phpoffice/phpspreadsheet": "^1.29"
+    }
 }

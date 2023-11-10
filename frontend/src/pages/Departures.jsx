@@ -27,6 +27,8 @@ const Departures = () => {
     }
   };
 
+  console.log(fetchData);
+
   useEffect(() => {
     fetchData(); // Fetch data when the component mounts
 
