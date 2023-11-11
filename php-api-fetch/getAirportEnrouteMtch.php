@@ -9,7 +9,7 @@ $timeIntervals = array(
     array('12:00:00', '23:59:59')
 );
 
-$response_enroute = array();
+$response_enroute_cap = array();
 
 foreach ($timeIntervals as $interval) {
     $startTime = clone $currentDate;
@@ -21,7 +21,7 @@ foreach ($timeIntervals as $interval) {
     $startTime = $startTime->format('c');
     $endTime = $endTime->format('c');
 
-    $url = "https://aeroapi.flightaware.com/aeroapi/airports/MTPP/flights/scheduled_arrivals?start={$startTime}&end={$endTime}";
+    $url = "https://aeroapi.flightaware.com/aeroapi/airports/MTCH/flights/scheduled_arrivals?start={$startTime}&end={$endTime}";
 
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-apikey: ' . $apiKey));
@@ -51,8 +51,7 @@ foreach ($timeIntervals as $interval) {
             }
 
             // Save data to a temporary array
-            $response_enroute = $newData;
-
+            $response_enroute_cap = $newData;
         } else {
             echo "Erreur lors du décodage JSON.";
         }
@@ -60,4 +59,3 @@ foreach ($timeIntervals as $interval) {
         echo "Erreur lors de la requête cURL.";
     }
 }
-?>

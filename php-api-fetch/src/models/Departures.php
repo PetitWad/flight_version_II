@@ -28,7 +28,7 @@ class Departures
     {
         global $curr_date;
         $sql = "SELECT id, airline_code, flight, flight_to, status, estimate_arrive_time, cur_date
-                FROM $this->table WHERE `cur_date` = '$curr_date' ";
+                FROM $this->table";
         // On éxecute la requête
         $req = $this->connexion->query($sql);
 

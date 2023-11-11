@@ -9,7 +9,7 @@ $timeIntervals = array(
     array('12:00:00', '23:59:59')
 );
 
-$response_enroute = array();
+$response_scheduled_cap = array();
 
 foreach ($timeIntervals as $interval) {
     $startTime = clone $currentDate;
@@ -21,7 +21,7 @@ foreach ($timeIntervals as $interval) {
     $startTime = $startTime->format('c');
     $endTime = $endTime->format('c');
 
-    $url = "https://aeroapi.flightaware.com/aeroapi/airports/MTPP/flights/scheduled_arrivals?start={$startTime}&end={$endTime}";
+    $url = "https://aeroapi.flightaware.com/aeroapi/airports/MTCH/flights/scheduled_departures?start={$startTime}&end={$endTime}";
 
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-apikey: ' . $apiKey));
@@ -32,27 +32,30 @@ foreach ($timeIntervals as $interval) {
         $data = json_decode($result, true);
 
         if ($data !== null) {
+            // Debugging output
+            echo "Debug: Data for scheduled departures MTCH\n";
+            var_dump($data);
+
             // Initialize $newData as an empty array
             $newData = [];
 
             // Append new data to $newData
-            foreach ($data['scheduled_arrivals'] as $arrival) {
-                $datetime = new DateTime($arrival['estimated_on'], new DateTimeZone('UTC'));
+            foreach ($data['scheduled_departures'] as $departure) {
+                $datetime = new DateTime($departure['estimated_on'], new DateTimeZone('UTC'));
                 $datetime->setTimezone(new DateTimeZone('America/Port-Au-Prince'));
                 $formatted_time = $datetime->format("h:i A");
 
                 $newData[] = array(
-                    'airlineCode' => $arrival['operator'],
-                    'flightNumber' => $arrival['ident'],
-                    'origin' => $arrival['origin']['city'],
+                    'airlineCode' => $departure['operator'],
+                    'flightNumber' => $departure['ident'],
+                    'destination' => $departure['destination']['city'],
                     'time' => $formatted_time,
-                    'status' => $arrival['status']
+                    'status' => $departure['status']
                 );
             }
 
             // Save data to a temporary array
-            $response_enroute = $newData;
-
+            $response_scheduled_cap = $newData;
         } else {
             echo "Erreur lors du décodage JSON.";
         }
@@ -60,4 +63,3 @@ foreach ($timeIntervals as $interval) {
         echo "Erreur lors de la requête cURL.";
     }
 }
-?>

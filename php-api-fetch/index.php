@@ -27,6 +27,8 @@ $url = "https://aeroapi.flightaware.com/aeroapi/airports/MTPP/flights/scheduled_
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-apikey: ' . $apiKey));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
 if ($result = curl_exec($ch)) {
 	curl_close($ch);

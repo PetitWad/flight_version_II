@@ -1,16 +1,5 @@
 <?php
-require 'vendor/autoload.php'; // Include the Composer autoloader
-
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
-include 'src/config/connection.php';
-include 'src/models/Departures.php';
-
 $apiKey = "e2B0ZmYZG71usQxrl9AxDweaKTJSnAg6";
-$fxmlUrl = "https://aeroapi.flightaware.com/aeroapi/";
-
 $timezone = new DateTimeZone('America/Port-Au-Prince');
 $currentDate = new DateTime('now', $timezone);
 
@@ -20,7 +9,7 @@ $timeIntervals = array(
     array('12:00:00', '23:59:59')
 );
 
-$response = array();
+$response_scheduled = array();
 
 foreach ($timeIntervals as $interval) {
     $startTime = clone $currentDate;
@@ -61,8 +50,9 @@ foreach ($timeIntervals as $interval) {
                 );
             }
 
-            // Append $newData to $response
-            $response = array_merge($response, $newData);
+            // Save data to a temporary array
+            $response_scheduled = $newData;
+
         } else {
             echo "Erreur lors du décodage JSON.";
         }
@@ -70,43 +60,4 @@ foreach ($timeIntervals as $interval) {
         echo "Erreur lors de la requête cURL.";
     }
 }
-
-// Check if the Excel file exists or create a new spreadsheet
-if (file_exists('departures_flight_data.xlsx')) {
-    // Load the existing Excel file
-    $spreadsheet = IOFactory::load('departures_flight_data.xlsx');
-} else {
-    // Create a new spreadsheet
-    $spreadsheet = new Spreadsheet();
-}
-
-// Always create a new worksheet, whether the spreadsheet is new or existing
-$worksheet = $spreadsheet->getActiveSheet();
-
-if ($worksheet->getHighestRow() === 1) {
-    // Add headers only if it's a new worksheet
-    $worksheet->setCellValue('A1', 'Airline Code');
-    $worksheet->setCellValue('B1', 'Flight Number');
-    $worksheet->setCellValue('C1', 'Destination');
-    $worksheet->setCellValue('D1', 'Time');
-    $worksheet->setCellValue('E1', 'Status');
-}
-
-// Start from the next available row to insert new data
-$row = $worksheet->getHighestRow() + 1;
-
-foreach ($response as $departure) {
-    $worksheet->setCellValue('A' . $row, $departure['airlineCode']);
-    $worksheet->setCellValue('B' . $row, $departure['flightNumber']);
-    $worksheet->setCellValue('C' . $row, $departure['destination']);
-    $worksheet->setCellValue('D' . $row, $departure['time']);
-    $worksheet->setCellValue('E' . $row, $departure['status']);
-    $row++;
-}
-
-// Save the updated spreadsheet to the same file
-$writer = new Xlsx($spreadsheet);
-$writer->save('departures_flight_data.xlsx');
-
-echo "Data has been saved to departures_flight_data.xlsx";
 ?>
