@@ -32,16 +32,13 @@ foreach ($timeIntervals as $interval) {
         $data = json_decode($result, true);
 
         if ($data !== null) {
-            // Initialize $newData as an empty array
-            $newData = [];
-
-            // Append new data to $newData
+            // Append new data to $response_scheduled
             foreach ($data['scheduled_departures'] as $departure) {
                 $datetime = new DateTime($departure['estimated_on'], new DateTimeZone('UTC'));
                 $datetime->setTimezone(new DateTimeZone('America/Port-Au-Prince'));
-                $formatted_time = $datetime->format("h:i A");
+                $formatted_time = $datetime->format("d-m-Y h:i A");
 
-                $newData[] = array(
+                $response_scheduled[] = array(
                     'airlineCode' => $departure['operator'],
                     'flightNumber' => $departure['ident'],
                     'destination' => $departure['destination']['city'],
@@ -49,15 +46,12 @@ foreach ($timeIntervals as $interval) {
                     'status' => $departure['status']
                 );
             }
-
-            // Save data to a temporary array
-            $response_scheduled = $newData;
-
         } else {
-            echo "Erreur lors du décodage JSON.";
+            echo "Error decoding JSON.";
         }
     } else {
-        echo "Erreur lors de la requête cURL.";
+        echo "Error in cURL request.";
     }
 }
-?>
+
+// You can now use $response_scheduled for further processing or saving to a file.

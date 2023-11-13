@@ -43,7 +43,7 @@ foreach ($timeIntervals as $interval) {
             foreach ($data['scheduled_departures'] as $departure) {
                 $datetime = new DateTime($departure['estimated_on'], new DateTimeZone('UTC'));
                 $datetime->setTimezone(new DateTimeZone('America/Port-Au-Prince'));
-                $formatted_time = $datetime->format("h:i A");
+                $formatted_time = $datetime->format("d-m-Y h:i A");
 
                 $newData[] = array(
                     'airlineCode' => $departure['operator'],

@@ -39,7 +39,7 @@ foreach ($timeIntervals as $interval) {
             foreach ($data['scheduled_arrivals'] as $arrival) {
                 $datetime = new DateTime($arrival['estimated_on'], new DateTimeZone('UTC'));
                 $datetime->setTimezone(new DateTimeZone('America/Port-Au-Prince'));
-                $formatted_time = $datetime->format("h:i A");
+                $formatted_time = $datetime->format("d-m-Y h:i A");
 
                 $newData[] = array(
                     'airlineCode' => $arrival['operator'],
@@ -60,4 +60,3 @@ foreach ($timeIntervals as $interval) {
         echo "Erreur lors de la requête cURL.";
     }
 }
-?>
