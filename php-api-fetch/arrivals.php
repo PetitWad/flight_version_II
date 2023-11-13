@@ -1,6 +1,6 @@
 <?php
 include_once 'src/config/connection.php';
-include 'src/models/departures.php';
+include 'src/models/Arrivals.php';
 
 // date_default_timezone_set("America/Port-au-Prince");
 $apiKey = "e2B0ZmYZG71usQxrl9AxDweaKTJSnAg6";
@@ -22,7 +22,7 @@ $endTime = $endTime->format('c'); // End time
 
 
 
-$url = "https://aeroapi.flightaware.com/aeroapi/airports/MTPP/flights/scheduled_departures?start={$startTime}&end={$endTime}";
+$url = "https://aeroapi.flightaware.com/aeroapi/airports/MTPP/flights/scheduled_arrivals?start={$startTime}&end={$endTime}";
 
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-apikey: ' . $apiKey));
@@ -38,21 +38,21 @@ if ($result = curl_exec($ch)) {
 
 	$database = new Database();
 	$conn = $database->getConnexion();
-	$departuresDao = new Departures($conn);
+	$arrivalsDao = new Arrivals($conn);
 
 	$cur_date = date('d-M-Y'); // current date 
-	$departuresDao->deleteDepartures(); // delete the data in database before insert the data each 30 minutes
 	// Vérifiez si le décodage a réussi
 	if ($data !== null) {
-		// Parcourez les éléments "Departures" du tableau
-		foreach ($data['scheduled_departures'] as $departure) {
+		$arrivalsDao->deleteArrivals(); // delete the data in database before insert the data each 30 minutes
+		// Parcourez les éléments "arrivals" du tableau
+		foreach ($data['scheduled_arrivals'] as $arrival) {
 
-			$airline_code = $departure['operator'];
-			$ident = $departure['ident'];
-			$destinationCity = $departure['destination']['city'];
+			$airline_code = $arrival['operator'];
+			$ident = $arrival['ident'];
+			$originCity = $arrival['origin']['city'];
 
 			// Create a DateTime object from the ISO 8601 time
-			$datetime = new DateTime($departure['estimated_on'], new DateTimeZone('UTC'));
+			$datetime = new DateTime($arrival['estimated_on'], new DateTimeZone('UTC'));
 
 			// Set the time zone to your local time zone (e.g., 'America/New_York')
 			$datetime->setTimezone(new DateTimeZone('America/Port-Au-Prince'));
@@ -60,9 +60,9 @@ if ($result = curl_exec($ch)) {
 			// Format the DateTime object as time with AM or PM
 			$formatted_time = $datetime->format("h:i A");
 
-			$status = $departure['status'];
-			echo "Operator: $airline_code, Flight Number: $ident, Destination: $destinationCity, Time: $formatted_time, Status: $status\n";
-			$departuresDao->adddepartures($airline_code, $ident, $destinationCity, $status, $formatted_time, $cur_date);
+			$status = $arrival['status'];
+			echo "Operator: $airline_code, Flight Number: $ident, Origin: $originCity, Time: $formatted_time, Status: $status\n";
+			$arrivalsDao->addArrivals($airline_code, $ident, $originCity, $status, $formatted_time, $cur_date);
 		}
 	} else {
 		echo "Erreur lors du décodage JSON.";
@@ -72,3 +72,4 @@ if ($result = curl_exec($ch)) {
 }
 
 ?>
+
