@@ -5,7 +5,7 @@ import Footer from '../components/footer/Footer';
 import { FaPlaneArrival } from 'react-icons/fa';
 
 const apiUrl = 'https://flightsystem.atalou.info/php-api-fetch/src/api/allArrivals.php';
-
+// const apiUrl = 'http://localhost/flight_version_II/php-api-fetch/src/api/allArrivals.php';
 const Arrivals = () => {
   const [arrivalsData, setArrivalsData] = useState([]);
   const [isLoadingArrivals, setIsLoadingArrivals] = useState(true);
