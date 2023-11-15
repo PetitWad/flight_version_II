@@ -32,10 +32,10 @@ const Departures = () => {
   useEffect(() => {
     fetchData(); // Fetch data when the component mounts
 
-    // Periodically refresh the data every 60 seconds
+    // Periodically refresh the data every 30 sa seconds in milisecond
     const refreshInterval = setInterval(() => {
       fetchData();
-    }, 1800000);
+    }, 60000);
 
     return () => {
       // Clear the interval when the component is unmounted
