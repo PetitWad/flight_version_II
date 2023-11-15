@@ -4,6 +4,7 @@ import { getLogoUrlByAirline } from '../../config/config';
 import './autoScroll.css';
 import './animate.css';
 import plane from '../../assets/img/plane.png';
+import networkError from '../../assets/img/networkError.png';
 
 const AutoScroll = ({ data, loading, typeVol }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -32,7 +33,25 @@ const AutoScroll = ({ data, loading, typeVol }) => {
     }, [data, loading]);
 
     if (!isOnline) {
-        return <div className="item-error">No Internet Connection...</div>;
+        return(
+            <>
+            <div className="container networkError">
+                <div className="item-error no_flight">
+                    {/* <div className="text">NO </div> */}
+                    <div className="text">
+                        <span className="spantext"> No Internet...</span>
+                    </div>
+                </div>
+                <img className="image_plane" src={networkError} alt="mnetwork Error" />
+            </div>
+        </>
+
+        )
+     
+        // <div className="container">
+        //     <img src={networkError} alt="mnetwork Error" />
+        //     <p className='text'>No Internet Connection...</p>
+        // </div>;
     }
 
     if (loading) {
@@ -43,9 +62,9 @@ const AutoScroll = ({ data, loading, typeVol }) => {
         return (
             <div className="container">
                 <div className="item-error no_flight">
-                    <div className="text">NO </div>
+                    {/* <div className="text">NO </div> */}
                     <div className="text">
-                        <span className="spantext"> FLIGHT ....</span>
+                        <span className="spantext">No Flight...</span>
                     </div>
                 </div>
                 <img className="image_plane" src={plane} alt="Logo" />
