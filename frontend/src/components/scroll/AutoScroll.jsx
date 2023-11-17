@@ -22,7 +22,7 @@ const AutoScroll = ({ data, loading, typeVol }) => {
                 setCurrentIndex((prevIndex) =>
                     prevIndex + 7 < data.length ? prevIndex + 7 : 0
                 );
-            }, 7000); // the scrolling interval (7000ms = 7 seconds)
+            }, 10000); // the scrolling interval (10000 = 10 seconds)
 
             return () => {
                 clearInterval(interval);
@@ -47,11 +47,7 @@ const AutoScroll = ({ data, loading, typeVol }) => {
         </>
 
         )
-     
-        // <div className="container">
-        //     <img src={networkError} alt="mnetwork Error" />
-        //     <p className='text'>No Internet Connection...</p>
-        // </div>;
+    
     }
 
     if (loading) {
