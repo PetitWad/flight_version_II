@@ -66,18 +66,6 @@ header {
   color: #e1d25f;
 }
 
-/* Médias queries pour la réactivité */
-
-/* @media (min-width: 768px) and (max-width: 1199px) {
-  .departures h1 {
-    font-size: 15px;
-  }
-
-  .logo-label {
-    display: none;
-  }
-} */
-
 
 /* Médias queries pour la réactivité */
 @media (max-width: 767px) {
