@@ -1,12 +1,15 @@
-<script>
-	function autoRefreshPages() {
-		// Recharge les pages arrivals.php et departures.php
-		window.location.href = 'arrivals.php';
-		setTimeout(function() {
-			window.location.href = 'departures.php';
-		}, 1000); // Ajoutez un délai d'une secondes pour laisser la première page se recharger
-	}
+<?php
+// Contenu du fichier index.php
 
-	// Actualise les pages toutes les 20 minutes en millisecondes
-	setInterval(autoRefreshPages, 1200000);
+include 'arrivals.php'; // Inclut le contenu de arrivals.php
+include 'departures.php'; // Inclut le contenu de departures.php
+
+?>
+
+<script>
+	function autoRefreshPage() {
+		location.reload(); // Recharge la page
+	}
+	// Actualise la page toutes les 30 minutes en millisecondes
+	setInterval(autoRefreshPage, 1200000);
 </script>

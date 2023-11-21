@@ -18,7 +18,7 @@ $endTime->setTime(23, 59);
 
 // Format the dates in ISO 8601 format
 $startTime = $startTime->format('c'); // Start time
-$endTime = $endTime->format('c'); // End time
+$endTime = $endTime->format('c'); // End time 
 
 
 
