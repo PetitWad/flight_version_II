@@ -8,7 +8,7 @@ include 'departures.php'; // Inclut le contenu de departures.php
 
 <script>
 	function autoRefreshPage() {
-		location.reload(); // Recharge la page
+		location.reload(true); // Recharge la page
 	}
 	// Actualise la page toutes les 30 minutes en millisecondes
 	setInterval(autoRefreshPage, 1200000);

@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2a0e3e;
+    text-align: center;
+    height: 100vh;
+}
+
+.itemShowChange {
+    padding-top: 225,
+
+}
+
+.headingStyles {
+    color: #a2afd1;
+}
+
+@media (max-width: 450px) {
+    .headingStyles {
+        font-size: 15px;
+    }
+
+    .itemShowChange img {
+        width: 100px;
+        height: 100px;
+    }
+
+}

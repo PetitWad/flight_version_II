@@ -5,14 +5,14 @@ import Date from './DateComponent';
 const Footer = () => {
   return (
     <footer className="footer-grid">
-    <div>
-      <Date />
-    </div>
-    <div>
-      <span>&copy; Powered By ATALOU MICROSYSTEM</span>
-    </div>
-  </footer>
-  
+      <div className='dateFooter'>
+        <Date />
+      </div>
+      <div>
+        <span>&copy; Powered By ATALOU MICROSYSTEM</span>
+      </div>
+    </footer>
+
   );
 };
 

@@ -84,7 +84,7 @@ header {
 
   }
 
- .current-time {
+  .current-time {
     margin-top: 10px;
     font-size: 11px;
   }
@@ -92,7 +92,7 @@ header {
   .departures h1 {
     font-size: 25px;
   }
-  
+
 
   .logo-label {
     display: none;
@@ -102,8 +102,45 @@ header {
     height: 40px;
   }
 
- .item {
+  .item {
     padding: 5px;
     font-size: 20px;
+  }
+}
+
+/* Médias queries pour la réactivité jusqu'à 400px */
+@media (max-width: 400px) {
+  header {
+    align-items: center;
+    text-align: center;
+  }
+
+  .logo-label {
+    display: none;
+  }
+
+  .departures {
+    margin-top: 10px;
+  }
+
+  .current-time {
+    margin-top: 10px;
+  }
+
+  .current-time h1 {
+    font-size: 10px;
+  }
+
+  .departures h1 {
+    font-size: 15px;
+  }
+
+  .logo img {
+    height: 30px;
+  }
+
+  .flight-header .item {
+    padding: 5px;
+    font-size: 15px;
   }
 }

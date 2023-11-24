@@ -1,31 +1,18 @@
 import React from "react";
+import './styles.css';
 import IconChangement from '../assets/img/changement.gif';
 
 const ChangementPage = () => {
 
   return (
-    <div style={container}>
-      <div style={itemShowChange}>
+    <div className="container" >
+      <div className="itemShowChange" >
         <img src={IconChangement} alt="" />
-        <h2 style={headingStyles}>Changement de page en cours...</h2>
+        <h2 className="headingStyles">Changement de page en cours...</h2>
       </div>
     </div>
   );
 };
 
-const container = {
-  backgroundColor: "#2a0e3e",
-  textAlign: "center",
-  height: '100vh'
-};
-
-const itemShowChange = {
-  paddingTop: 225,
-
-}
-
-const headingStyles = {
-  color: "#a2afd1",
-};
 
 export default ChangementPage;

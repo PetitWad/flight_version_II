@@ -17,8 +17,6 @@ const Header = ({ typeVol, logo }) => {
                 </div>
                 <div className="departures">
                     <h1>{typeVol} {logo}  </h1>
-
-
                 </div>
                 <div className="current-time">
                     <h1> <Horloge /></h1>

@@ -33,21 +33,20 @@ const AutoScroll = ({ data, loading, typeVol }) => {
     }, [data, loading]);
 
     if (!isOnline) {
-        return(
+        return (
             <>
-            <div className="container networkError">
-                <div className="item-error no_flight">
-                    {/* <div className="text">NO </div> */}
-                    <div className="text">
-                        <span className="spantext"> No Internet...</span>
+                <div className="container networkError">
+                    <div className="item-error no_flight">
+                        <div className="text">
+                            <span className="spantext"> No Internet...</span>
+                        </div>
                     </div>
+                    <img className="image_plane" src={networkError} alt="mnetwork Error" />
                 </div>
-                <img className="image_plane" src={networkError} alt="mnetwork Error" />
-            </div>
-        </>
+            </>
 
         )
-    
+
     }
 
     if (loading) {
@@ -58,7 +57,6 @@ const AutoScroll = ({ data, loading, typeVol }) => {
         return (
             <div className="container">
                 <div className="item-error no_flight">
-                    {/* <div className="text">NO </div> */}
                     <div className="text">
                         <span className="spantext">No Flight...</span>
                     </div>
