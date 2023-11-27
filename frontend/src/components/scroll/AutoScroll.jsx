@@ -69,8 +69,7 @@ const AutoScroll = ({ data, loading, typeVol }) => {
     return (
 
         <div className="flight-data-container">
-            {console.log(data)}
-            {data.slice(currentIndex, currentIndex + 7).map((item, index) => (
+            {Array.isArray(data) && data.slice(currentIndex, currentIndex + 7).map((item, index) => (
                 <div
                     key={index}
                     className={`flight-data ${index % 2 === 0 ? 'row-stripped' : ''}`}
@@ -82,10 +81,10 @@ const AutoScroll = ({ data, loading, typeVol }) => {
                             alt="Unknown Airline"
                         />
                     </div>
-                    <div className="item-content" style={{ witheSpace: 'nowrap' }}>{item.flight}</div>
-                    <div className="item-content" style={{ witheSpace: 'nowrap' }}>  {typeVol === 'ARRIVALS' ? item.flight_from : item.flight_to}  </div>
-                    <div className="item-content time-color" style={{ witheSpace: 'nowrap' }}>{item.estimate_arrive_time}</div>
-                    <div className="item-content" style={{ witheSpace: 'nowrap' }}>{item.status}</div>
+                    <div className="item-content" style={{ whiteSpace: 'nowrap' }}>{item.flight}</div>
+                    <div className="item-content" style={{ whiteSpace: 'nowrap' }}>  {typeVol === 'ARRIVALS' ? item.flight_from : item.flight_to}  </div>
+                    <div className="item-content time-color" style={{ whiteSpace: 'nowrap' }}>{item.estimate_arrive_time}</div>
+                    <div className="item-content" style={{ whiteSpace: 'nowrap' }}>{item.status}</div>
                 </div>
 
             ))}

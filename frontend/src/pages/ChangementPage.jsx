@@ -14,5 +14,4 @@ const ChangementPage = () => {
   );
 };
 
-
 export default ChangementPage;
