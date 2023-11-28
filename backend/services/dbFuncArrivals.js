@@ -25,10 +25,10 @@ const insertArrivals = async (arrivals) => {
     return new Promise((resolve, reject) => {
         connection.query(insertQuery, [values], (error, results) => {
             if (error) {
-                console.error('Erreur lors de l\'insertion des arrivées:', error);
+                console.error('Error during Arrival insertion:', error);
                 reject(error);
             } else {
-                console.log('Arrivées insérées avec succès:', results);
+                console.log('Arrivals inserted successfully:', results);
                 resolve(results);
             }
         });
@@ -41,10 +41,10 @@ const deleteAllArrivals = async () => {
     return new Promise((resolve, reject) => {
         connection.query(deleteQuery, (error, results) => {
             if (error) {
-                console.error('Erreur lors de la suppression des arrivées:', error);
+                console.error('Error during Arrival deletion:', error);
                 reject(error);
             } else {
-                console.log('Toutes les arrivées ont été supprimées avec succès:', results);
+                console.log('All Arrivals deleted successfully:', results);
                 resolve(results);
             }
         });
@@ -57,10 +57,10 @@ const getAllArrivalsFromDB = async () => {
     return new Promise((resolve, reject) => {
         connection.query(selectQuery, (error, results) => {
             if (error) {
-                console.error('Erreur lors de la récupération des arrivées depuis la base de données:', error);
+                console.error('Error during retrieval of Arrivals from the database:', error);
                 reject(error);
             } else {
-                console.log('Arrivées récupérées depuis la base de données avec succès:', results);
+                console.log('Arrivals retrieved successfully from the database:', results);
                 resolve(results);
             }
         });
