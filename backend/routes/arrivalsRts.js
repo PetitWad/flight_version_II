@@ -16,7 +16,7 @@ arrivalsRts.get('/post/arrivals', async (req, res) => { // refresh link manual
 });
 
 
-//cron job to refresh every 30 minutes
+//cron job to refresh every an hour
 cron.schedule('0 * * * *', async () => {
     try {
         await arrivalsCtrl.postArrivals();

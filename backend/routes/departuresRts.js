@@ -16,7 +16,7 @@ departuresRts.get('/post/departures', async (req, res) => {
     res.json(departures);
 });
 
-// Cron job to refresh departure data every 30 minutes
+// Cron job to refresh departure data every an hours
 cron.schedule('0 * * * *', async () => {
     try {
         await departuresCtrl.postDepartures();
