@@ -9,13 +9,15 @@ include 'getAirportEnRoute.php';
 include 'getAirportScheduledMtch.php';
 include 'getAirportEnrouteMtch.php';
 
+// Get the current month
+$currentMonth = date('M');
+
 // Save data to MTPP_PAP_ CSV file
-$date = date('M');
-$data_pap = __DIR__ . "/repport_file/MTPP_PAP_{$date}.csv";
+$data_pap = __DIR__ . "/repport_file/MTPP_PAP_{$currentMonth}.csv";
 $pointer_pap = fopen($data_pap, 'a');
 
 // save data to MTCH_CAP CSV file
-$data_cap = __DIR__ . "/repport_file/MTCH_CAP_{$date}.csv";
+$data_cap = __DIR__ . "/repport_file/MTCH_CAP_{$currentMonth}.csv";
 $pointer_cap = fopen($data_cap, 'a');
 
 // Save scheduled departures data to CSV
@@ -38,9 +40,7 @@ foreach ($response_enroute_cap as $value) {
     fputcsv($pointer_cap, array_merge($value, ['Type' => 'EnRoute']));
 }
 
-
-
 fclose($pointer_pap);
 fclose($pointer_cap);
 
-echo "Data has been saved successfull...";
+echo "Data has been saved successfully...";
