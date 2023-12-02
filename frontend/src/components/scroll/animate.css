@@ -126,3 +126,27 @@
     height: auto;
     margin-top: 160px;
 }
+
+
+/* Media query for 450 pixels and below */
+@media (max-width: 450px) {
+    .no_flight {
+        position: static;
+        width: 100%;
+        transform: none;
+        text-align: center;
+    }
+
+    .text:last-of-type .spantext {
+        margin-left: 0;
+    }
+
+    .image_plane {
+        margin-top: 80px;
+        /* Adjust as needed */
+    }
+
+    .text {
+        font-size: 1em;
+    }
+}
