@@ -1,4 +1,4 @@
-const connection = require('../src/db/dbConfig');
+const connection = require('../db/dbConfig');
 
 var currentDate = new Date();
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const cron = require('node-cron');
-const departuresCtrl = require('../../controllers/departuresCtrl');
+const departuresCtrl = require('../controllers/departuresCtrl');
 
 const departuresRts = express.Router();
 
