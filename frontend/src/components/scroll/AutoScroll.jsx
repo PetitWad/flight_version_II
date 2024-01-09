@@ -69,7 +69,7 @@ const AutoScroll = ({ data, loading, typeVol }) => {
     return (
 
         <div className="flight-data-container">
-            {Array.isArray(data) && data.slice(currentIndex, currentIndex + 7).map((item, index) => (
+            {data.slice(currentIndex, currentIndex + 7).map((item, index) => (
                 <div
                     key={index}
                     className={`flight-data ${index % 2 === 0 ? 'row-stripped' : ''}`}

@@ -19,8 +19,7 @@ const Arrivals = () => {
       }
 
       const data = await response.json();
-      console.log(data);
-      setArrivalsData(data);
+      setArrivalsData(data[0]);
       setIsLoadingArrivals(false);
     } catch (error) {
       setIsLoadingArrivals(false);

@@ -19,7 +19,7 @@ const Departures = () => {
       }
 
       const data = await response.json();
-      setDeparturesData(data);
+      setDeparturesData(data[0]);
       setIsLoadingDepartures(false);
     } catch (error) {
       setIsLoadingDepartures(false);
