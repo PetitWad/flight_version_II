@@ -28,34 +28,37 @@ class Arrivals
     public function allArrivals()
     {
         global $curr_date;
+    
         $sql = "SELECT id, airline_code, flight, flight_from, status, estimate_arrive_time, cur_date
-                FROM $this->table";
+                FROM $this->table
+                WHERE CURDATE() = STR_TO_DATE(cur_date, '%d-%m-%y')";
+    
         // On éxecute la requête
         $req = $this->connexion->query($sql);
-
+    
         // On retourne le resultat
         return $req;
     }
-
+    
 
 
     public function addArrivals($airline_code, $flight, $flight_from, $status, $estimate_arrive_time, $cur_date)
     {
-    
-            $addarrivals = $this->connexion->prepare("INSERT INTO `$this->table` (`airline_code`, `flight`, `flight_from`, `status`, `estimate_arrive_time`, `cur_date`) VALUES (:airline_code, :flight, :flight_from, :status, :estimate_arrive_time, :cur_date)");
 
-            $addarrivals->bindParam(':airline_code', $airline_code);
-            $addarrivals->bindParam(':flight', $flight);
-            $addarrivals->bindParam(':flight_from', $flight_from);
-            $addarrivals->bindParam(':status', $status);
-            $addarrivals->bindParam(':estimate_arrive_time', $estimate_arrive_time);
-            $addarrivals->bindParam(':cur_date', $cur_date);
+        $addarrivals = $this->connexion->prepare("INSERT INTO `$this->table` (`airline_code`, `flight`, `flight_from`, `status`, `estimate_arrive_time`, `cur_date`) VALUES (:airline_code, :flight, :flight_from, :status, :estimate_arrive_time, :cur_date)");
 
-            if ($addarrivals->execute()) {
-                echo 'Data inserted successfully';
-            } else {
-                echo 'Data not inserted';
-            }
+        $addarrivals->bindParam(':airline_code', $airline_code);
+        $addarrivals->bindParam(':flight', $flight);
+        $addarrivals->bindParam(':flight_from', $flight_from);
+        $addarrivals->bindParam(':status', $status);
+        $addarrivals->bindParam(':estimate_arrive_time', $estimate_arrive_time);
+        $addarrivals->bindParam(':cur_date', $cur_date);
+
+        if ($addarrivals->execute()) {
+            echo 'Data inserted successfully';
+        } else {
+            echo 'Data not inserted';
+        }
     }
 
 

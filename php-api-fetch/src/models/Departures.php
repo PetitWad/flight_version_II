@@ -13,7 +13,7 @@ class Departures
     public $flight;
     public $flight_to;
     public $status;
-    public $estimate_arrive_time;
+    public $estimate_departure_time;
     public $cur_date;
 
     public function __construct($db)
@@ -27,8 +27,11 @@ class Departures
     public function allDepartures()
     {
         global $curr_date;
-        $sql = "SELECT id, airline_code, flight, flight_to, status, estimate_arrive_time, cur_date
-                FROM $this->table";
+
+        $sql = "SELECT id, airline_code, flight, flight_to, status, estimate_departure_time, cur_date
+                FROM $this->table
+                WHERE CURDATE() = STR_TO_DATE(cur_date, '%d-%m-%y')";
+
         // On éxecute la requête
         $req = $this->connexion->query($sql);
 
@@ -36,14 +39,16 @@ class Departures
         return $req;
     }
 
-    public function addDepartures($airline_code, $flight, $flight_to, $status, $estimate_arrive_time, $cur_date) {
-        $addDepartures = $this->connexion->prepare("INSERT INTO `$this->table` (`airline_code`, `flight`, `flight_to`, `status`, `estimate_arrive_time`, `cur_date`) VALUES (:airline_code, :flight, :flight_to, :status, :estimate_arrive_time, :cur_date)");
-        
+
+    public function addDepartures($airline_code, $flight, $flight_to, $status, $estimate_departure_time, $cur_date)
+    {
+        $addDepartures = $this->connexion->prepare("INSERT INTO `$this->table` (`airline_code`, `flight`, `flight_to`, `status`, `estimate_departure_time`, `cur_date`) VALUES (:airline_code, :flight, :flight_to, :status, :estimate_departure_time, :cur_date)");
+
         $addDepartures->bindParam(':airline_code', $airline_code);
         $addDepartures->bindParam(':flight', $flight);
         $addDepartures->bindParam(':flight_to', $flight_to);
         $addDepartures->bindParam(':status', $status);
-        $addDepartures->bindParam(':estimate_arrive_time', $estimate_arrive_time);
+        $addDepartures->bindParam(':estimate_departure_time', $estimate_departure_time);
         $addDepartures->bindParam(':cur_date', $cur_date);
 
         if ($addDepartures->execute()) {
@@ -53,15 +58,13 @@ class Departures
         }
     }
 
-    public function deleteDepartures(){
+    public function deleteDepartures()
+    {
         $delDepartures = $this->connexion->prepare("DELETE FROM  `$this->table`");
         if ($delDepartures->execute()) {
             echo 'Data deleted successfully';
         } else {
             echo 'Data not deleted';
         }
-
     }
-    
-    
 }

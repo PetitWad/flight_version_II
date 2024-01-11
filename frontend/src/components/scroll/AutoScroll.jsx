@@ -78,12 +78,12 @@ const AutoScroll = ({ data, loading, typeVol }) => {
                         <img
                             className="item-image"
                             src={getLogoUrlByAirline(logos, item.airline_code)}
-                            alt="Unknown Airline"
+                            alt={item.airline_code}
                         />
                     </div>
                     <div className="item-content" style={{ whiteSpace: 'nowrap' }}>{item.flight}</div>
                     <div className="item-content" style={{ whiteSpace: 'nowrap' }}>  {typeVol === 'ARRIVALS' ? item.flight_from : item.flight_to}  </div>
-                    <div className="item-content time-color" style={{ whiteSpace: 'nowrap' }}>{item.estimate_arrive_time}</div>
+                    <div className="item-content time-color" style={{ whiteSpace: 'nowrap' }}> {typeVol === 'ARRIVALS' ? item.estimate_arrive_time : item.estimate_departure_time}</div>
                     <div className="item-content" style={{ whiteSpace: 'nowrap' }}>{item.status}</div>
                 </div>
 
